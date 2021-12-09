@@ -1,11 +1,4 @@
 #!/bin/bash
-AZURE_SUBSCRIPTION_ID="b3964669-f27e-4b92-bcf3-d9e84dc482c5"
-GITHUB_REPO="Briwalkr/gh-DataOps-Parking-Sensors"
-GITHUB_PAT_TOKEN="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"
-AZURE_LOCATION="eastus2"
-DEPLOYMENT_ID="parksens"
-AZDO_PIPELINES_BRANCH_NAME="ado"
-AZURESQL_SERVER_PASSWORD="<SuperStrongPass@word1>"
 
 curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
 
