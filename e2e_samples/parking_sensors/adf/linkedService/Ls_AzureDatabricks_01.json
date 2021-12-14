@@ -14,7 +14,8 @@
 			},
 			"newClusterVersion": "7.3.x-scala2.12",
 			"newClusterInitScripts": []
-		}
+		},
+		"description": "."
 	},
 	"type": "Microsoft.DataFactory/factories/linkedservices"
 }
