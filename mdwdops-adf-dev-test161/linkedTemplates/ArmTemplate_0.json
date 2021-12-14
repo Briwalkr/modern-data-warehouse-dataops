@@ -7,10 +7,6 @@
 			"metadata": "Data Factory name",
 			"defaultValue": "mdwdops-adf-dev-test161"
 		},
-		"Ls_AzureDatabricks_01_accessToken": {
-			"type": "secureString",
-			"metadata": "Secure string for 'accessToken' of 'Ls_AzureDatabricks_01'"
-		},
 		"Ls_AdlsGen2_01_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://mdwdopsstdevtest161.dfs.core.windows.net"
@@ -18,6 +14,10 @@
 		"Ls_AzureDatabricks_01_properties_typeProperties_domain": {
 			"type": "string",
 			"defaultValue": "https://adb-3003441136841817.17.azuredatabricks.net"
+		},
+		"Ls_AzureDatabricks_01_properties_typeProperties_workspaceResourceId": {
+			"type": "string",
+			"defaultValue": "/subscriptions/b3964669-f27e-4b92-bcf3-d9e84dc482c5/resourceGroups/mdwdops-test161-dev-rg/providers/Microsoft.Databricks/workspaces/mdwdops-dbw-dev-test161"
 		},
 		"Ls_KeyVault_01_properties_typeProperties_baseUrl": {
 			"type": "string",
@@ -78,14 +78,13 @@
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
 			"properties": {
+				"description": ".",
 				"annotations": [],
 				"type": "AzureDatabricks",
 				"typeProperties": {
 					"domain": "[parameters('Ls_AzureDatabricks_01_properties_typeProperties_domain')]",
-					"accessToken": {
-						"type": "SecureString",
-						"value": "[parameters('Ls_AzureDatabricks_01_accessToken')]"
-					},
+					"authentication": "MSI",
+					"workspaceResourceId": "[parameters('Ls_AzureDatabricks_01_properties_typeProperties_workspaceResourceId')]",
 					"newClusterNodeType": "Standard_DS3_v2",
 					"newClusterNumOfWorker": "1",
 					"newClusterSparkEnvVars": {
@@ -226,7 +225,7 @@
 				"activities": [
 					{
 						"name": "StandardizeData",
-						"description": "",
+						"description": ".",
 						"type": "DatabricksNotebook",
 						"dependsOn": [
 							{
@@ -280,6 +279,7 @@
 					},
 					{
 						"name": "Set infilefolder",
+						"description": ".",
 						"type": "SetVariable",
 						"dependsOn": [],
 						"userProperties": [],

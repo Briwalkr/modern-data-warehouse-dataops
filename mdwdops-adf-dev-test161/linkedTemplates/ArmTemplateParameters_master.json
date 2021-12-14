@@ -5,9 +5,6 @@
 		"factoryName": {
 			"value": "mdwdops-adf-dev-test161"
 		},
-		"Ls_AzureDatabricks_01_accessToken": {
-			"value": ""
-		},
 		"P_Ingest_MelbParkingData_properties_0_typeProperties_notebookPath": {
 			"value": "/notebooks/02_standardize"
 		},
@@ -31,6 +28,9 @@
 		},
 		"Ls_AzureDatabricks_01_properties_typeProperties_domain": {
 			"value": "https://adb-3003441136841817.17.azuredatabricks.net"
+		},
+		"Ls_AzureDatabricks_01_properties_typeProperties_workspaceResourceId": {
+			"value": "/subscriptions/b3964669-f27e-4b92-bcf3-d9e84dc482c5/resourceGroups/mdwdops-test161-dev-rg/providers/Microsoft.Databricks/workspaces/mdwdops-dbw-dev-test161"
 		},
 		"Ls_AzureSQLDW_01_properties_typeProperties_connectionString_secretName": {
 			"value": "sqldwConnectionString"
