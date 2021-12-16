@@ -5,7 +5,7 @@
 		"activities": [
 			{
 				"name": "StandardizeData",
-				"description": "",
+				"description": ".",
 				"type": "DatabricksNotebook",
 				"dependsOn": [
 					{
@@ -59,6 +59,7 @@
 			},
 			{
 				"name": "Set infilefolder",
+				"description": ".",
 				"type": "SetVariable",
 				"dependsOn": [],
 				"userProperties": [],
