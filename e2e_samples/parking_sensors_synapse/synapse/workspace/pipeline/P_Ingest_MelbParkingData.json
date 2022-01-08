@@ -4,6 +4,7 @@
 		"activities": [
 			{
 				"name": "Set infilefolder",
+				"description": "Pub Test1",
 				"type": "SetVariable",
 				"dependsOn": [],
 				"userProperties": [],
