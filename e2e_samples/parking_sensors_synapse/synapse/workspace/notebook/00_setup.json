@@ -12,16 +12,40 @@
 			"driverCores": 4,
 			"executorMemory": "28g",
 			"executorCores": 4,
-			"numExecutors": 2
+			"numExecutors": 2,
+			"conf": {
+				"spark.dynamicAllocation.enabled": "false",
+				"spark.dynamicAllocation.minExecutors": "2",
+				"spark.dynamicAllocation.maxExecutors": "2",
+				"spark.autotune.trackingId": "c0e3a792-4ec8-47c2-a94f-3746eb92243a"
+			}
 		},
 		"metadata": {
+			"saveOutput": true,
+			"enableDebugMode": false,
 			"kernelspec": {
 				"name": "synapse_pyspark",
 				"display_name": "Synapse PySpark"
 			},
 			"language_info": {
 				"name": "python"
-			}
+			},
+			"a365ComputeOptions": {
+				"id": "/subscriptions/b3964669-f27e-4b92-bcf3-d9e84dc482c5/resourceGroups/mdwdops-asa2-dev-rg/providers/Microsoft.Synapse/workspaces/sywsdevasa2/bigDataPools/synspdevasa2",
+				"name": "synspdevasa2",
+				"type": "Spark",
+				"endpoint": "https://sywsdevasa2.dev.azuresynapse.net/livyApi/versions/2019-11-01-preview/sparkPools/synspdevasa2",
+				"auth": {
+					"type": "AAD",
+					"authResource": "https://dev.azuresynapse.net"
+				},
+				"sparkVersion": "2.4",
+				"nodeCount": 10,
+				"cores": 4,
+				"memory": 28,
+				"automaticScaleJobs": false
+			},
+			"sessionKeepAliveTimeout": 30
 		},
 		"cells": [
 			{
@@ -35,8 +59,7 @@
 				},
 				"source": [
 					"# 1. Get variables"
-				],
-				"attachments": null
+				]
 			},
 			{
 				"cell_type": "code",
@@ -59,8 +82,7 @@
 					"keyvaultlsname = 'Ls_KeyVault_01'\r\n",
 					"adls2lsname = 'Ls_AdlsGen2_01'"
 				],
-				"attachments": null,
-				"execution_count": null
+				"execution_count": 1
 			},
 			{
 				"cell_type": "markdown",
@@ -73,8 +95,7 @@
 				},
 				"source": [
 					"# 2. Linked Services Setup: KV and ADLS Gen2"
-				],
-				"attachments": null
+				]
 			},
 			{
 				"cell_type": "code",
@@ -98,10 +119,10 @@
 					"storage_account = token_library.getSecretWithLS(keyvaultlsname, \"datalakeaccountname\")\r\n",
 					"\r\n",
 					"spark.conf.set(\"spark.storage.synapse.linkedServiceName\", adls2lsname)\r\n",
-					"spark.conf.set(\"fs.azure.account.oauth.provider.type\", \"com.microsoft.azure.synapse.tokenlibrary.LinkedServiceBasedTokenProvider\")\r\n"
+					"spark.conf.set(\"fs.azure.account.oauth.provider.type\", \"com.microsoft.azure.synapse.tokenlibrary.LinkedServiceBasedTokenProvider\")\r\n",
+					""
 				],
-				"attachments": null,
-				"execution_count": null
+				"execution_count": 2
 			},
 			{
 				"cell_type": "markdown",
@@ -114,8 +135,7 @@
 				},
 				"source": [
 					"# 3. Create Schemas"
-				],
-				"attachments": null
+				]
 			},
 			{
 				"cell_type": "code",
@@ -137,8 +157,7 @@
 					"spark.sql(f\"CREATE SCHEMA IF NOT EXISTS interim LOCATION 'abfss://datalake@{storage_account}.dfs.core.windows.net/data'\")\r\n",
 					"spark.sql(f\"CREATE SCHEMA IF NOT EXISTS malformed LOCATION 'abfss://datalake@{storage_account}.dfs.core.windows.net/data'\")"
 				],
-				"attachments": null,
-				"execution_count": null
+				"execution_count": 3
 			},
 			{
 				"cell_type": "markdown",
@@ -151,8 +170,7 @@
 				},
 				"source": [
 					"# 4. Create Fact Tables"
-				],
-				"attachments": null
+				]
 			},
 			{
 				"cell_type": "code",
@@ -175,8 +193,7 @@
 					" \r\n",
 					"spark.sql(f\"REFRESH TABLE dw.fact_parking\")"
 				],
-				"attachments": null,
-				"execution_count": null
+				"execution_count": 4
 			},
 			{
 				"cell_type": "markdown",
@@ -189,8 +206,7 @@
 				},
 				"source": [
 					"# 5. Create Dimension Tables"
-				],
-				"attachments": null
+				]
 			},
 			{
 				"cell_type": "code",
@@ -221,8 +237,7 @@
 					"spark.sql(f\"CREATE TABLE dw.dim_parking_bay(dim_parking_bay_id STRING, bay_id INT,`marker_id` STRING, `meter_id` STRING, `rd_seg_dsc` STRING, `rd_seg_id` STRING, load_id STRING, loaded_on TIMESTAMP) USING parquet LOCATION 'abfss://datalake@{storage_account}.dfs.core.windows.net/data/dw/dim_parking_bay/'\")\r\n",
 					"spark.sql(f\"REFRESH TABLE dw.dim_parking_bay\")"
 				],
-				"attachments": null,
-				"execution_count": null
+				"execution_count": 5
 			},
 			{
 				"cell_type": "markdown",
@@ -235,8 +250,7 @@
 				},
 				"source": [
 					"# 6. Create dim date and time"
-				],
-				"attachments": null
+				]
 			},
 			{
 				"cell_type": "markdown",
@@ -247,8 +261,9 @@
 						}
 					}
 				},
-				"source": [],
-				"attachments": null
+				"source": [
+					""
+				]
 			},
 			{
 				"cell_type": "code",
@@ -277,8 +292,7 @@
 					"dimtime = spark.read.csv(f\"abfss://datalake@{storage_account}.dfs.core.windows.net/data/seed/dim_time/dim_time.csv\", header=True)\r\n",
 					"dimtime.write.saveAsTable(\"dw.dim_time\")"
 				],
-				"attachments": null,
-				"execution_count": null
+				"execution_count": 6
 			},
 			{
 				"cell_type": "markdown",
@@ -291,8 +305,7 @@
 				},
 				"source": [
 					"# 7. Create interim and error tables"
-				],
-				"attachments": null
+				]
 			},
 			{
 				"cell_type": "code",
@@ -326,8 +339,7 @@
 					"spark.sql(f\"CREATE TABLE malformed.sensor(bay_id INT,`st_marker_id` STRING,`lat` FLOAT,`lon` FLOAT,`location` STRUCT<`coordinates`: ARRAY<DOUBLE>, `type`: STRING>,`status` STRING, load_id STRING, loaded_on TIMESTAMP) USING parquet LOCATION 'abfss://datalake@{storage_account}.dfs.core.windows.net/data/malformed/malformed.parking_bay/'\")\r\n",
 					"spark.sql(f\"REFRESH TABLE malformed.sensor\")"
 				],
-				"attachments": null,
-				"execution_count": null
+				"execution_count": 7
 			}
 		]
 	}
