@@ -13,7 +13,7 @@ resources:
   - repository: mdwdataops_workspace_publish
     type: github
     endpoint: mdwdops-github
-    name: Briwalkr2/modern-data-warehouse-dataops  # deploy script should replace this with your github repo
+    name: Briwalkr/modern-data-warehouse-dataops  # deploy script should replace this with your github repo
     ref: workspace_publish
 
 stages:
