@@ -1,11 +1,10 @@
 {
-	"name": "Ls_KeyVault_01",
-	"type": "Microsoft.Synapse/workspaces/linkedservices",
-	"properties": {
-		"type": "AzureKeyVault",
-		"annotations": [],
-		"typeProperties": {
-			"baseUrl": "https://mdwdops-kv-dev-asa.vault.azure.net/"
-		}
-	}
+    "name": "Ls_KeyVault_01",
+    "properties": {
+        "annotations": [],
+        "type": "AzureKeyVault",
+        "typeProperties": {
+            "baseUrl": "https://mdwdops-kv-prod-asa2.vault.azure.net/"
+        }
+    }
 }
