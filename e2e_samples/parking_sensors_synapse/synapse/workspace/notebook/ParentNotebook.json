@@ -1,0 +1,63 @@
+{
+	"name": "ParentNotebook",
+	"properties": {
+		"folder": {
+			"name": "NestedNotebooks"
+		},
+		"nbformat": 4,
+		"nbformat_minor": 2,
+		"bigDataPool": {
+			"referenceName": "synspdevasa2",
+			"type": "BigDataPoolReference"
+		},
+		"sessionProperties": {
+			"driverMemory": "28g",
+			"driverCores": 4,
+			"executorMemory": "28g",
+			"executorCores": 4,
+			"numExecutors": 2,
+			"conf": {
+				"spark.dynamicAllocation.enabled": "false",
+				"spark.dynamicAllocation.minExecutors": "2",
+				"spark.dynamicAllocation.maxExecutors": "2",
+				"spark.autotune.trackingId": "37998ed0-685c-4d7d-9294-6d373cb3aa7d"
+			}
+		},
+		"metadata": {
+			"saveOutput": true,
+			"enableDebugMode": false,
+			"kernelspec": {
+				"name": "synapse_pyspark",
+				"display_name": "Synapse PySpark"
+			},
+			"language_info": {
+				"name": "python"
+			},
+			"a365ComputeOptions": {
+				"id": "/subscriptions/b3964669-f27e-4b92-bcf3-d9e84dc482c5/resourceGroups/mdwdops-asa2-dev-rg/providers/Microsoft.Synapse/workspaces/sywsdevasa2/bigDataPools/synspdevasa2",
+				"name": "synspdevasa2",
+				"type": "Spark",
+				"endpoint": "https://sywsdevasa2.dev.azuresynapse.net/livyApi/versions/2019-11-01-preview/sparkPools/synspdevasa2",
+				"auth": {
+					"type": "AAD",
+					"authResource": "https://dev.azuresynapse.net"
+				},
+				"sparkVersion": "2.4",
+				"nodeCount": 10,
+				"cores": 4,
+				"memory": 28,
+				"automaticScaleJobs": false
+			},
+			"sessionKeepAliveTimeout": 30
+		},
+		"cells": [
+			{
+				"cell_type": "code",
+				"source": [
+					"mssparkutils.notebook.run(\"Children/Child Notebook 1\", 1200)"
+				],
+				"execution_count": 13
+			}
+		]
+	}
+}
