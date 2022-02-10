@@ -1,0 +1,17 @@
+{
+	"name": "BadTrigger",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Stopped",
+		"pipelines": [],
+		"type": "ScheduleTrigger",
+		"typeProperties": {
+			"recurrence": {
+				"frequency": "Hour",
+				"interval": 15,
+				"startTime": "2022-02-10T20:54:00Z",
+				"timeZone": "UTC"
+			}
+		}
+	}
+}
